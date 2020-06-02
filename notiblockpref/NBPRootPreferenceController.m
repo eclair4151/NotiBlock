@@ -1,8 +1,8 @@
-#import "NBPRootListController.h"
+#import "NBPRootPreferenceController.h"
 #import "NBPRootTableViewController.h"
 
-//its the whole root prefecen controller. need to rename
-@implementation NBPRootListController 
+//its the whole root preference controller. need to rename
+@implementation NBPRootPreferenceController 
 
 - (void)loadView {
 	[super loadView];
@@ -29,8 +29,6 @@
 }
 
 -(void)viewFilters {
-	
-
      NBPRootTableViewController *vc = [[NBPRootTableViewController alloc] init];
 	 [self.navigationController pushViewController:vc animated:YES];
  }

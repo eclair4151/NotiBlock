@@ -29,7 +29,6 @@
         vertHeight+=50;
         
         self.picker = [[UIPickerView alloc] initWithFrame:CGRectMake((screenWidth - 225)/2, vertHeight, 225, 150)];
-        self.picker.backgroundColor = [UIColor whiteColor];
         self.picker.dataSource = self;
         self.picker.delegate = self;
         self.picker.hidden = NO;

@@ -9,7 +9,7 @@
 @end
 
 @interface BBServer
--(void)_publishBulletinRequest:(id)arg1 forSectionID:(id)arg2 forDestinations:(unsigned long long)arg3 alwaysToLockScreen:(BOOL)arg4 ;
+-(void)_publishBulletinRequest:(id)arg1 forSectionID:(id)arg2 forDestinations:(unsigned long long)arg3;
 @end
 
 NSMutableDictionary *filters;
@@ -20,9 +20,12 @@ NSMutableDictionary *filters;
 -(void)applicationDidFinishLaunching:(id)application {
     %orig;
 
-	//do in background thread
+	HBLogDebug(@"NOTIBLOCK - springboard launch");
+
+	//do in background thread?
 	HBPreferences *defaults = [[HBPreferences  alloc] initWithIdentifier:@"com.shemeshapps.notiblock"];
 	NSData *data  = [defaults objectForKey:@"filter_array"];
+
 	if (data != nil) {
 		filters = [[NSMutableDictionary alloc] init];
 		NSArray *dictFilterarray = (NSArray *)[NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -40,7 +43,12 @@ NSMutableDictionary *filters;
 
 			NSMutableArray *appIdfilters = [filters objectForKey:dictKey];
 			[appIdfilters addObject:filter];
+
+			HBLogDebug(@"NOTIBLOCK - adding filter to dict for appkey: --%@--", dictKey);
+
 		}
+	} else {
+		HBLogDebug(@"NOTIBLOCK - springboard data load was nil");
 	}
 }
 
@@ -48,29 +56,40 @@ NSMutableDictionary *filters;
 
 
 
+
+
+
+
 %hook BBServer
 
--(void)_publishBulletinRequest:(id)arg1 forSectionID:(id)arg2 forDestinations:(unsigned long long)arg3 alwaysToLockScreen:(BOOL)arg4 {
-	HBLogDebug(@"Entered publish bulletin");
-	HBLogDebug(@"HODOR Title: %@      Subtitle: %@         Message: %@",((BBBulletinRequest *)arg1).title, ((BBBulletinRequest *)arg1).subtitle, ((BBBulletinRequest *)arg1).message );
+-(void)_publishBulletinRequest:(id)arg1 forSectionID:(id)arg2 forDestinations:(unsigned long long)arg3 {
+	HBLogDebug(@"NOTIBLOCK - Entered publish bulletin");
+	HBLogDebug(@"NOTIBLOCK - Title: %@      Subtitle: %@         Message: %@",((BBBulletinRequest *)arg1).title, ((BBBulletinRequest *)arg1).subtitle, ((BBBulletinRequest *)arg1).message );
 
 	BOOL filtered = NO;
 	 
 	if (filters == nil) {
-		HBLogDebug(@"No filters. returning");
+		HBLogDebug(@"NOTIBLOCK - No filters. returning");
 		%orig;
 		return;
 	}
 	
-	
+	HBLogDebug(@"NOTIBLOCK - loading all filters: %lu", (unsigned long)[filters count]);
+		
 	NSMutableArray *allFilters = [filters objectForKey:@""];
 
 	NSMutableArray *appFilters  = [filters objectForKey:(NSString *)arg2];
+	//HBLogDebug(@"NOTIBLOCK - loading relevant appfilters for --%@--: %lu",(NSString *)arg2, (unsigned long)[appFilters count]);
+
+    if (allFilters == nil) {
+		allFilters = [[NSMutableArray alloc] init];
+	}
+
 	if (appFilters != nil) {
 		allFilters = [[allFilters arrayByAddingObjectsFromArray:appFilters] mutableCopy];
 	}
 
-    HBLogDebug(@"loading relevant filters: %lu", (unsigned long)[allFilters count]);
+    HBLogDebug(@"NOTIBLOCK - loading relevant filters for --%@--: %lu",(NSString *)arg2, (unsigned long)[allFilters count]);
 
 
 	BBBulletinRequest *request = ((BBBulletinRequest *)arg1);
@@ -103,10 +122,10 @@ NSMutableDictionary *filters;
 				filtered = YES;	
 			}
 		} else if (filter.blockType == 2) { //contains
-			HBLogDebug(@"checking if string contains text");
+			HBLogDebug(@"NOTIBLOCK - checking if string contains text");
 
 			if ([title rangeOfString:filterText].location != NSNotFound || [subtitle rangeOfString:filterText].location != NSNotFound || [message rangeOfString:filterText].location != NSNotFound) {
-				HBLogDebug(@"string contains match. filtering turned on");
+				HBLogDebug(@"NOTIBLOCK - string contains match. filtering turned on");
 				filtered = YES;	
 			} 
 		} else if (filter.blockType == 3) { //exact text
@@ -115,7 +134,7 @@ NSMutableDictionary *filters;
 			} 
 		} else if (filter.blockType == 4) { //regex
 			NSPredicate *notifTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", filterText]; 
-			if ([notifTest evaluateWithObject: [NSString stringWithFormat:@"%@ %@ %@",title,subtitle,message]]) {
+			if ((title != nil && [notifTest evaluateWithObject: title]) || (subtitle != nil && [notifTest evaluateWithObject: subtitle]) || (message != nil && [notifTest evaluateWithObject: message])) {
 				filtered = YES;
 			}
 		} else if (filter.blockType == 5) { //always
@@ -127,16 +146,9 @@ NSMutableDictionary *filters;
 		}
 	}
 
-	
-
-	//HBLogDebug(@"HODOR Title: %@      Subtitle: %@         Message: %@",((BBBulletinRequest *)arg1).title, ((BBBulletinRequest *)arg1).subtitle, ((BBBulletinRequest *)arg1).message );
-	 // HBLogDebug(@"HODOR 2 %@",(NSString *)arg2);
-	 // HBLogDebug(@"HODOR 3 %llu",arg3);
-
 	if(!filtered) {
-	 	%orig;  //(arg1,@"com.outdoorfoundation.oncampuschallenge",arg3, arg4);
+	 	%orig;  //(arg1,@"com.outdoorfoundation.oncampuschallenge",arg3);
 	}
-
 }
 
 %end

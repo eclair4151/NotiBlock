@@ -103,6 +103,9 @@
     UIBarButtonItem *saveButton  = [[UIBarButtonItem alloc] initWithTitle:saveButtonText style:UIBarButtonItemStylePlain target:self action:@selector(onTapSave:)];
     self.navigationController.navigationBar.topItem.rightBarButtonItem = saveButton;
 
+  	// if (@available(iOS 13, *)) {
+    //     //self.isModalInPresentation = YES;
+    // }
 }
 
 
@@ -216,14 +219,13 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     //they selected always so disable the filter input
     if (row == 5) {
-        self.filterTextCell.backgroundColor = [UIColor colorWithRed:242.0/255.0 green:242.0/255.0 blue:242.0/255.0 alpha:1.0];
-        self.filterTextCell.textField.textColor = [UIColor colorWithRed:139.0/255.0 green:139.0/255.0 blue:139.0/255.0 alpha:1.0];
-        self.filterTextCell.textField.text = @"";
+        self.filterTextCell.textField.text = @"-----";
         self.filterTextCell.textField.enabled = NO;
 
     } else {
-        self.filterTextCell.backgroundColor = [UIColor whiteColor];
-        self.filterTextCell.textField.textColor = [UIColor blackColor];
+        if ([self.filterTextCell.textField.text isEqualToString: @"-----"]) {
+            self.filterTextCell.textField.text = @"";
+        }
         self.filterTextCell.textField.enabled = YES;
     }
 }

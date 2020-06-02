@@ -29,6 +29,9 @@
     NBPAddViewController *one = [[[NBPAddViewController alloc]init] autorelease];
 	one.delegate = self;
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:one];
+	// if (@available(iOS 13, *)) { //__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0
+    //     navController.modalInPresentation = YES;
+	// }
     [self presentViewController:navController animated:YES completion:nil];
 }
 

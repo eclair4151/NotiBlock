@@ -37,7 +37,6 @@
         
         self.datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, vertHeight, screenWidth, 150)];
         self.datePicker.datePickerMode = UIDatePickerModeTime;
-        self.datePicker.backgroundColor = [UIColor whiteColor];
         [self.datePicker addTarget:self action:@selector(dateIsChanged:) forControlEvents:UIControlEventValueChanged];
         self.datePicker.hidden = YES;
         

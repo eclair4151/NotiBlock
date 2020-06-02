@@ -19,6 +19,6 @@
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>NSPrincipalClass</key>
-	<string>NBPRootListController</string>
+	<string>NBPRootPreferenceController</string>
 </dict>
 </plist>

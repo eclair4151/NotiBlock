@@ -9,7 +9,7 @@
 		<key>cell</key>
 		<string>PSLinkCell</string>
 		<key>detail</key>
-		<string>NBPRootListController</string>
+		<string>NBPRootPreferenceController</string>
 		<key>icon</key>
 		<string>icon.png</string>
 		<key>isController</key>
