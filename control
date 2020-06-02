@@ -1,6 +1,6 @@
 Package: com.shemeshapps.notiblock
 Name: NotiBlock
-Depends: mobilesubstrate, ws.hbang.common, preferenceloader
+Depends: mobilesubstrate, ws.hbang.common, preferenceloader, com.rpetrich.applist
 Version: 0.0.1
 Architecture: iphoneos-arm
 Description: An awesome MobileSubstrate tweak!

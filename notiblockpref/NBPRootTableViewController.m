@@ -54,8 +54,7 @@ int __isOSVersionAtLeast(int major, int minor, int patch) { NSOperatingSystemVer
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 	}
 
-	// NSDate *date = _objects[indexPath.row];
-	 cell.textLabel.text = ((NotificationFilter *)self.filterList[indexPath.row]).filterName;
+    cell.textLabel.text = ((NotificationFilter *)self.filterList[indexPath.row]).filterName;
 	return cell;
 }
 
@@ -73,9 +72,10 @@ int __isOSVersionAtLeast(int major, int minor, int patch) { NSOperatingSystemVer
 	one.currentFilter = [self.filterList objectAtIndex:indexPath.row];
 
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:one];
-    [self presentViewController:navController animated:YES completion:nil];
-
-
+    if (@available(iOS 13, *)) {
+        navController.modalInPresentation = YES;
+	}
+	[self presentViewController:navController animated:YES completion:nil];
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -88,8 +88,6 @@ int __isOSVersionAtLeast(int major, int minor, int patch) { NSOperatingSystemVer
 		[self.tableView reloadData];
 	}
 	[self save];
-	// [_objects addObject:filter];
-	// [self.tableView insertRowsAtIndexPaths:@[ [NSIndexPath indexPathForRow:_objects.count-1 inSection:0] ] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 	
 -(void)save {

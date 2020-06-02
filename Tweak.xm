@@ -79,7 +79,6 @@ NSMutableDictionary *filters;
 	NSMutableArray *allFilters = [filters objectForKey:@""];
 
 	NSMutableArray *appFilters  = [filters objectForKey:(NSString *)arg2];
-	//HBLogDebug(@"NOTIBLOCK - loading relevant appfilters for --%@--: %lu",(NSString *)arg2, (unsigned long)[appFilters count]);
 
     if (allFilters == nil) {
 		allFilters = [[NSMutableArray alloc] init];
@@ -114,32 +113,41 @@ NSMutableDictionary *filters;
 		NSString *filterText = [filter.filterText lowercaseString];
 		//do filtering
 		if (filter.blockType == 0) { //starts with
+			HBLogDebug(@"NOTIBLOCK - checking if string starts with text");
 			if ([title hasPrefix:filterText] || [subtitle hasPrefix:filterText] || [message hasPrefix:filterText] ) {
+				HBLogDebug(@"NOTIBLOCK - string starts with. filtering turned on");
 				filtered = YES;	
 			}
 		} else if (filter.blockType == 1) { //ends with
+			HBLogDebug(@"NOTIBLOCK - checking if string end with text");
 			if ([title hasSuffix:filterText] || [subtitle hasSuffix:filterText] || [message hasSuffix:filterText] ) {
+				HBLogDebug(@"NOTIBLOCK - string ends with. filtering turned on");
 				filtered = YES;	
 			}
 		} else if (filter.blockType == 2) { //contains
 			HBLogDebug(@"NOTIBLOCK - checking if string contains text");
-
 			if ([title rangeOfString:filterText].location != NSNotFound || [subtitle rangeOfString:filterText].location != NSNotFound || [message rangeOfString:filterText].location != NSNotFound) {
 				HBLogDebug(@"NOTIBLOCK - string contains match. filtering turned on");
 				filtered = YES;	
 			} 
 		} else if (filter.blockType == 3) { //exact text
+			HBLogDebug(@"NOTIBLOCK - checking if string matches text");
 			if ([title isEqualToString:filterText] || [subtitle isEqualToString:filterText] || [message isEqualToString:filterText]) {
+				HBLogDebug(@"NOTIBLOCK - string is match. filtering turned on");
 				filtered = YES;	
 			} 
 		} else if (filter.blockType == 4) { //regex
+			HBLogDebug(@"NOTIBLOCK - checking if string matches regex");
 			NSPredicate *notifTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", filterText]; 
-			if ((title != nil && [notifTest evaluateWithObject: title]) || (subtitle != nil && [notifTest evaluateWithObject: subtitle]) || (message != nil && [notifTest evaluateWithObject: message])) {
+			if ((![title isEqualToString:@""] && [notifTest evaluateWithObject: title]) || (![subtitle isEqualToString:@""] && [notifTest evaluateWithObject: subtitle]) || (![message isEqualToString:@""] && [notifTest evaluateWithObject: message])) {
+				HBLogDebug(@"NOTIBLOCK - string matches regex. filtering turned on");
 				filtered = YES;
 			}
 		} else if (filter.blockType == 5) { //always
+			HBLogDebug(@"NOTIBLOCK - app should always be filtered. filtering turned on");
 			filtered = YES;
 		} 
+		
 		//check for schedule
 		if (filtered && filter.onSchedule) {
 
