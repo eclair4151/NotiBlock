@@ -1,6 +1,8 @@
+int __isOSVersionAtLeast(int major, int minor, int patch) { NSOperatingSystemVersion version; version.majorVersion = major; version.minorVersion = minor; version.patchVersion = patch; return [[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:version]; }
+
+
 #import "NBPRootTableViewController.h"
 #import <Cephei/HBPreferences.h>
-
 
 
 @interface NBPRootTableViewController ()
@@ -12,7 +14,6 @@
 
 - (void)loadView {
 	[super loadView];
-	 //HBLogDebug(@"TOMER: %lu objects", (unsigned long)[_objects count]);
 	[self load];
 
 	HBPreferences *defaults = [[HBPreferences  alloc] initWithIdentifier:@"com.shemeshapps.notiblock"];
@@ -29,9 +30,9 @@
     NBPAddViewController *one = [[[NBPAddViewController alloc]init] autorelease];
 	one.delegate = self;
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:one];
-	// if (@available(iOS 13, *)) { //__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0
-    //     navController.modalInPresentation = YES;
-	// }
+	if (@available(iOS 13, *)) {
+        navController.modalInPresentation = YES;
+	}
     [self presentViewController:navController animated:YES completion:nil];
 }
 
