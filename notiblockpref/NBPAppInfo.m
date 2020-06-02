@@ -10,19 +10,5 @@
 
 @implementation AppInfo
 
-
-- (id)initWithCoder:(NSCoder *)decoder {
-  if (self = [super init]) {
-    self.appName = [decoder decodeObjectForKey:@"appName"];
-    self.appIdentifier = [decoder decodeObjectForKey:@"appIdentifier"];
-  }
-  return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)encoder {
-  [encoder encodeObject:self.appName forKey:@"appName"];
-  [encoder encodeObject:self.appIdentifier forKey:@"appIdentifier"];
-}
-
 @end
 

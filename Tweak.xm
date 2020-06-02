@@ -1,4 +1,4 @@
-#import "NBNotificationFilter.h"
+#import "notiblockpref/NBPNotificationFilter.h"
 #import <Cephei/HBPreferences.h>
 
 
@@ -147,7 +147,7 @@ NSMutableDictionary *filters;
 			HBLogDebug(@"NOTIBLOCK - app should always be filtered. filtering turned on");
 			filtered = YES;
 		} 
-		
+
 		//check for schedule
 		if (filtered && filter.onSchedule) {
 

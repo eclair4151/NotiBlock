@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface AppInfo : NSObject<NSCoding>
+@interface AppInfo : NSObject
 
 @property (nonatomic, strong) NSString *appName;
 @property (nonatomic, strong) NSString *appIdentifier;

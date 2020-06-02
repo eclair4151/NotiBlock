@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "NBPAppInfo.h"
 
-@interface NotificationFilter : NSObject <NSCopying, NSCoding>
+@interface NotificationFilter : NSObject <NSCopying>
 
 @property (nonatomic, strong) NSString *filterName;
 @property (nonatomic, strong) NSString *filterText;
