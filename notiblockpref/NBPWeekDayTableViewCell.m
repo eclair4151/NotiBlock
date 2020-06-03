@@ -38,9 +38,6 @@
             [self addSubview:weekdayButton];
             
         }
-
-        
-        
     }
     return self;
 }

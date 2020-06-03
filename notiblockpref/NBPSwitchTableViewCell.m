@@ -18,17 +18,14 @@
 
         int screenWidth = [[UIScreen mainScreen] bounds].size.width;
 
-        self.switchLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 150, 50)];
-        self.switchLabel.text = @"Filter On Schedule";
+        self.switchLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 250, 50)];
+        //self.switchLabel.text = @"Filter On Schedule";
         [self addSubview:self.switchLabel];
         
         
         self.cellSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(screenWidth-66, 9, 51, 31)];
         [self.cellSwitch setOn:NO animated:NO];
         [self addSubview:self.cellSwitch];
-
-
-        
     }
     return self;
 }

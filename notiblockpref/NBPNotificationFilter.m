@@ -19,6 +19,9 @@
   copy.onSchedule = self.onSchedule;
   copy.startTime = self.startTime;
   copy.endTime = self.endTime;
+  copy.filterType = self.filterType;
+  copy.whitelistMode = self.whitelistMode;
+  self.showInNotificationCenter = self.showInNotificationCenter;
   copy.weekDays = [NSMutableArray arrayWithArray:self.weekDays];
   copy.filterName = self.filterName;
   return copy;
@@ -29,6 +32,7 @@
     self.filterName = [dict objectForKey:@"filterName"];
     self.filterText = [dict objectForKey:@"filterText"];
     self.blockType = [((NSNumber*)[dict objectForKey:@"blockType"]) intValue];
+    self.filterType = [((NSNumber*)[dict objectForKey:@"filterType"]) intValue];
 
     if ([dict objectForKey:@"appToBlockIdentifier"] != nil) {
       AppInfo *app = [[AppInfo alloc] init];
@@ -38,6 +42,9 @@
     }
     
     self.onSchedule = [((NSNumber*)[dict objectForKey:@"onSchedule"]) boolValue];
+    self.whitelistMode = [((NSNumber*)[dict objectForKey:@"whitelistMode"]) boolValue];
+    self.showInNotificationCenter = [((NSNumber*)[dict objectForKey:@"showInNotificationCenter"]) boolValue];
+
     self.startTime = [dict objectForKey:@"startTime"];
     self.endTime = [dict objectForKey:@"endTime"];
     self.weekDays = [NSMutableArray arrayWithArray:[dict objectForKey:@"weekDays"]];
@@ -51,7 +58,10 @@
   self.filterName, @"filterName",
   self.filterText, @"filterText",
   [NSNumber numberWithInt:self.blockType], @"blockType",
+  [NSNumber numberWithInt:self.filterType], @"filterType",
   [NSNumber numberWithBool:self.onSchedule], @"onSchedule",
+  [NSNumber numberWithBool:self.whitelistMode], @"whitelistMode",
+  [NSNumber numberWithBool:self.showInNotificationCenter], @"showInNotificationCenter",
   self.startTime, @"startTime",
   self.endTime, @"endTime",
   self.weekDays, @"weekDays",

@@ -14,8 +14,11 @@
 @property (nonatomic, strong) NSString *filterName;
 @property (nonatomic, strong) NSString *filterText;
 @property (nonatomic) NSInteger blockType;
+@property (nonatomic) NSInteger filterType;
 @property (nonatomic, strong) AppInfo *appToBlock;
 @property (nonatomic) BOOL onSchedule;
+@property (nonatomic) BOOL whitelistMode;
+@property (nonatomic) BOOL showInNotificationCenter;
 @property (nonatomic, strong) NSDate *startTime;
 @property (nonatomic, strong) NSDate *endTime;
 @property (nonatomic, strong) NSArray *weekDays;

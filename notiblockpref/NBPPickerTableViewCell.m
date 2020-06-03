@@ -15,15 +15,15 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.options = [NSArray arrayWithObjects:@"If it starts with:",@"If it ends with:",@"If it contains the text:",@"if it is the exact text:",@"If it matches regex:",@"Always",nil];
+        //self.options = [NSArray arrayWithObjects:@"If it starts with:",@"If it ends with:",@"If it contains the text:",@"if it is the exact text:",@"If it matches regex:",@"Always",nil];
         int vertHeight = 0;
         int screenWidth = [[UIScreen mainScreen] bounds].size.width;
         self.descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, vertHeight, 200, 50)];
-        self.descriptionLabel.text = @"Block the notification";
+        //self.descriptionLabel.text = @"Block the notification";
         [self addSubview:self.descriptionLabel];
         
         self.selectedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, vertHeight, screenWidth-15, 50)];
-        self.selectedLabel.text = (NSString *)self.options[0];
+        //self.selectedLabel.text = (NSString *)self.options[0];
         self.selectedLabel.textAlignment = NSTextAlignmentRight;
         [self addSubview:self.selectedLabel];
         vertHeight+=50;

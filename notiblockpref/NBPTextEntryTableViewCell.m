@@ -18,7 +18,7 @@
 
         int screenWidth = [[UIScreen mainScreen] bounds].size.width;
         self.textField = [[UITextField alloc] initWithFrame:CGRectMake(15, 0, screenWidth, 50)];
-        self.textField.placeholder = @"Enter Filter Text Here";
+        //self.textField.placeholder = @"Enter Filter Text Here";
         [self addSubview:self.textField];
     }
     return self;
