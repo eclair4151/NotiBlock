@@ -1,5 +1,6 @@
 #import "NBPRootPreferenceController.h"
 #import "NBPRootTableViewController.h"
+#import <Cephei/HBRespringController.h>
 
 //its the whole root preference controller. need to rename
 @implementation NBPRootPreferenceController 
@@ -32,6 +33,12 @@
      NBPRootTableViewController *vc = [[NBPRootTableViewController alloc] init];
 	 [self.navigationController pushViewController:vc animated:YES];
  }
+
+-(void)respringPhone {
+	HBLogDebug(@"NOTIBLOCK - respring phone");
+	[HBRespringController respring];
+}
+ 
 @end
 
 

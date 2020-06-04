@@ -36,6 +36,7 @@
 
 @interface NotiBlockChecker : NSObject
 + (int)blockTypeForBulletin:(BBBulletin *)bulletin;
++ (BOOL)areWeCurrentlyInSchedule:(NSDate *)startTime arg2:(NSDate *)endTime arg3:(NSArray *)weekdays;
 + (BOOL)doesMessageMatchFilterType:(BOOL)titleMatches arg2:(BOOL)subtitleMatches arg3:(BOOL)messageMatches  arg4:(int)filterType;
 @end
 
@@ -45,7 +46,9 @@ NSMutableDictionary *filters;
 
 @implementation NotiBlockChecker
 
-
+/**
+returns whether a message should be filtered based on some boolean logic of filters
+**/
 + (BOOL)doesMessageMatchFilterType:(BOOL)titleMatches arg2:(BOOL)subtitleMatches arg3:(BOOL)messageMatches  arg4:(int)filterType {
 	HBLogDebug(@"NOTIBLOCK - checking matched: title: %@, subtitle: %@, message: %@, filterType: %d",(titleMatches ? @"true" : @"false"), (subtitleMatches ? @"true" : @"false"), (messageMatches ? @"true" : @"false"), filterType);
 	if (filterType == 0) {
@@ -58,6 +61,50 @@ NSMutableDictionary *filters;
 		return messageMatches;
 	}
 	return NO;
+}
+
+/**
+returns whether we are currently inbetween the start time and and time and on a weekday set to true in an array of bools
+**/
++(BOOL)areWeCurrentlyInSchedule:(NSDate *)startTime arg2:(NSDate *)endTime arg3:(NSArray *)weekdays {
+	HBLogDebug(@"NOTIBLOCK - checking schedule");
+
+	NSDate *curTime = [NSDate date];
+
+
+	NSCalendar *calendar = [NSCalendar currentCalendar];
+
+	NSDateComponents *startComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:startTime];
+	NSCalendar *newStartCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	NSDate *newStartTime = [newStartCalendar dateBySettingHour:[startComponents hour] minute:[startComponents minute] second:0 ofDate:curTime options:0];
+	
+	NSDateComponents *endComponents = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:endTime];
+	NSCalendar *newEndCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	NSDate *newEndTime = [newEndCalendar dateBySettingHour:[endComponents hour] minute:[endComponents minute] second:0 ofDate:curTime options:0];
+	
+
+	NSInteger curWeekday = [[NSCalendar currentCalendar] component:NSCalendarUnitWeekday 
+                                                   fromDate:curTime] - 1;
+	//day of week is not selected
+	if (![((NSNumber *)weekdays[curWeekday]) boolValue]) {
+		HBLogDebug(@"NOTIBLOCK - day is not active. skipping filter");
+		return false;
+	} 
+
+	if ([[newStartTime earlierDate:newEndTime] isEqualToDate:newEndTime]) { //backwards (start time before end time)
+		HBLogDebug(@"NOTIBLOCK - backwards schedule mode");
+		return [[newEndTime earlierDate:curTime] isEqualToDate:newEndTime] || [[newStartTime earlierDate:curTime] isEqualToDate:curTime];
+	} else { //regular, check for in between
+
+		HBLogDebug(@"NOTIBLOCK - regular schedule mode");
+		HBLogDebug(@"NOTIBLOCK - is after start - curTime: %f", [curTime timeIntervalSince1970]);	
+		HBLogDebug(@"NOTIBLOCK - is after start - newStartTime: %f", [newStartTime timeIntervalSince1970]);	
+		HBLogDebug(@"NOTIBLOCK - is after start - newEndTime: %f", [newEndTime timeIntervalSince1970]);	
+
+		HBLogDebug(@"NOTIBLOCK - is after start - %@",([[newStartTime earlierDate:curTime] isEqualToDate:newStartTime] ? @"true" : @"false"));
+		HBLogDebug(@"NOTIBLOCK - is before end - %@",([[newEndTime earlierDate:curTime] isEqualToDate:curTime] ? @"true" : @"false"));
+		return [[newEndTime earlierDate:curTime] isEqualToDate:curTime] && [[newStartTime earlierDate:curTime] isEqualToDate:newStartTime];
+	}
 }
 
 /**
@@ -114,8 +161,10 @@ NSMutableDictionary *filters;
 	for (NotificationFilter *filter in allFilters) {
 
 		//check for schedule and skip if not inside
-		if (filter.onSchedule) {
-
+		if (filter.onSchedule && ![self areWeCurrentlyInSchedule:filter.startTime arg2:filter.endTime arg3:filter.weekDays]) {
+			//not inside schedule, skip
+			HBLogDebug(@"NOTIBLOCK - schedule was on, but we determined it is not currently active. skipping filter");
+			continue;
 		}
 
 		NSString *filterText = [filter.filterText lowercaseString];
@@ -201,6 +250,18 @@ Loads filters into memory from disk when springboard is loaded
 	HBPreferences *defaults = [[HBPreferences  alloc] initWithIdentifier:@"com.shemeshapps.notiblock"];
 	NSData *data  = [defaults objectForKey:@"filter_array"];
 
+	HBPreferences *prefDefaults = [[HBPreferences  alloc] initWithIdentifier:@"com.shemeshapps.notiblockpref"];
+	BOOL enabled  = [prefDefaults boolForKey:@"enabled"];
+
+	for (NSString *key in [[prefDefaults dictionaryRepresentation] allKeys]) {
+		HBLogDebug(@"NOTIBLOCK - pref keys: %@", key);
+	}
+
+	if(!enabled) {
+		HBLogDebug(@"NOTIBLOCK - tweak disabled. not loading filters");
+		return;
+	} 
+
 	if (data != nil) {
 		filters = [[NSMutableDictionary alloc] init];
 		NSArray *dictFilterarray = (NSArray *)[NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -235,6 +296,7 @@ Loads filters into memory from disk when springboard is loaded
 Code to hide the banner dropdown view
 **/
 %hook NCNotificationShortLookViewController
+
 -(id)_initWithNotificationRequest:(id)arg1 revealingAdditionalContentOnPresentation:(BOOL)arg2 {
 	BBBulletin *bulletin = ((NCNotificationRequest *)arg1).bulletin;
 	NCNotificationShortLookViewController *temp = %orig;
@@ -252,6 +314,7 @@ Code to hide the banner dropdown view
 		[self dismissViewControllerAnimated:NO completion:nil];
 	}
 }
+
 %end
 
 
@@ -281,10 +344,3 @@ Check for filters and block notifications if needed
 }
 
 %end
-
-
-// HODOR Title: Stephen Hayes      Subtitle: To you‎ & Jonathen         Message: Oooh that's actually a really good one
-// HODOR Title: Noah and Waseh      Subtitle: (null)         Message: Noah Abbott: Parameters. I'll explain em tomorrow
-// HODOR Title: (null)      Subtitle: (null)         Message: Huh
-// HODOR Title: Hangouts      Subtitle: (null)         Message: sdf
-// HODOR Title: (null)      Subtitle: (null)         Message: ‎etanshemesh99 is typing...

@@ -198,7 +198,7 @@
         case 5:
             return @"By turning Show In Notification Center to true, the notification will not make a sound, wake your phone, or show a banner, but will still show up in the notification center/lockscreen.";
         case 6:
-            return @"When blocking on a schedule, The filter is only active in between the start time and end time, on days that are selected as green. If the notification happens on a day that is red, or outside the window, it will be allowed through.";
+            return @"When blocking on a schedule, The filter is only active in between the start time and end time on days that are selected as green. If the notification happens on a day that is red, or outside the window, it will be allowed through.";
     }  
     return @"";  
 }
