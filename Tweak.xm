@@ -116,12 +116,12 @@ returns whether we are currently inbetween the start time and and time and on a 
 	NSString *title = [bulletin.title lowercaseString];
 	NSString *subtitle = [bulletin.subtitle lowercaseString];
 	NSString *message = [bulletin.message lowercaseString];
-	NSString *bulletinID = bulletin.bulletinID;
+	//NSString *bulletinID = bulletin.bulletinID;
 	NSString *sectionId =  bulletin.sectionID;
 
-    HBLogDebug(@"NOTIBLOCK - Entered publish bulletin for %@ with ID: %@ ", sectionId, bulletinID);
+   // HBLogDebug(@"NOTIBLOCK - Entered publish bulletin for %@ with ID: %@ ", sectionId, bulletinID);
 
-	HBLogDebug(@"NOTIBLOCK - BulletinID:%@         Title: %@      Subtitle: %@         Message: %@", bulletinID, title, subtitle, message );
+	//HBLogDebug(@"NOTIBLOCK - BulletinID:%@         Title: %@      Subtitle: %@         Message: %@", bulletinID, title, subtitle, message );
 
 	BOOL filtered = NO;
 	 
@@ -251,11 +251,11 @@ Loads filters into memory from disk when springboard is loaded
 	NSData *data  = [defaults objectForKey:@"filter_array"];
 
 	HBPreferences *prefDefaults = [[HBPreferences  alloc] initWithIdentifier:@"com.shemeshapps.notiblockpref"];
-	BOOL enabled  = [prefDefaults boolForKey:@"enabled"];
+   	bool enabled = [([prefDefaults objectForKey:@"enabled"] ?: @(YES)) boolValue];
 
-	for (NSString *key in [[prefDefaults dictionaryRepresentation] allKeys]) {
-		HBLogDebug(@"NOTIBLOCK - pref keys: %@", key);
-	}
+	//for (NSString *key in [[prefDefaults dictionaryRepresentation] allKeys]) {
+	//	HBLogDebug(@"NOTIBLOCK - pref keys: %@", key);
+	//}
 
 	if(!enabled) {
 		HBLogDebug(@"NOTIBLOCK - tweak disabled. not loading filters");
