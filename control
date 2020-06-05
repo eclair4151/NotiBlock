@@ -3,7 +3,21 @@ Name: NotiBlock
 Depends: mobilesubstrate, ws.hbang.common, preferenceloader, applist
 Version: 0.0.1
 Architecture: iphoneos-arm
-Description: An awesome MobileSubstrate tweak!
+Description: NotiBlock - Block notifications and take control of your digital well-being
+ Push notifications are a gift and a curse, allowing you to get notified instantly of important information, but also opening a door into letting people and apps interrupt your life without your consent. The tools Apple gives us are not powerful enough to stop the spam of notifications, and required a more advanced tool set. 
+ 
+ NotiBlock is an advanced notification blocking and filtering tweak. It lets you block notifications based many fields for simple or advanced configurations. Features include blocking based on:
+  - Content of the notification
+  - What app the notification is from
+  - Whitelist mode to only allow certain notifications through
+  - Block notifications completely or just mute them
+  - Schedules, to only block certain times and days of the week. 
+ 
+ This app is also open source. View the source code on Github: https://github.com/eclair4151/NotiBlock
+ 
+ If you like this tweak and want to help support my development of free open source tweaks, feel free to donate: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YP44VSWZCTGE4&source=url
+
+ Comptible with iOS 11 - 13.5
 Maintainer: ShemeshApps
 Author: ShemeshApps
 Section: Tweaks

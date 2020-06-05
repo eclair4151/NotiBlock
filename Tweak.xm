@@ -27,7 +27,6 @@
 
 @interface NCNotificationShortLookViewController: NCNotificationViewController
 -(id)_initWithNotificationRequest:(id)arg1 revealingAdditionalContentOnPresentation:(BOOL)arg2 ;
--(id)_scrollView;
 @end
 
 @interface NCNotificationRequest
@@ -97,9 +96,9 @@ returns whether we are currently inbetween the start time and and time and on a 
 	} else { //regular, check for in between
 
 		HBLogDebug(@"NOTIBLOCK - regular schedule mode");
-		HBLogDebug(@"NOTIBLOCK - is after start - curTime: %f", [curTime timeIntervalSince1970]);	
-		HBLogDebug(@"NOTIBLOCK - is after start - newStartTime: %f", [newStartTime timeIntervalSince1970]);	
-		HBLogDebug(@"NOTIBLOCK - is after start - newEndTime: %f", [newEndTime timeIntervalSince1970]);	
+		HBLogDebug(@"NOTIBLOCK - curTime: %f", [curTime timeIntervalSince1970]);	
+		HBLogDebug(@"NOTIBLOCK - newStartTime: %f", [newStartTime timeIntervalSince1970]);	
+		HBLogDebug(@"NOTIBLOCK - newEndTime: %f", [newEndTime timeIntervalSince1970]);	
 
 		HBLogDebug(@"NOTIBLOCK - is after start - %@",([[newStartTime earlierDate:curTime] isEqualToDate:newStartTime] ? @"true" : @"false"));
 		HBLogDebug(@"NOTIBLOCK - is before end - %@",([[newEndTime earlierDate:curTime] isEqualToDate:curTime] ? @"true" : @"false"));
@@ -119,8 +118,7 @@ returns whether we are currently inbetween the start time and and time and on a 
 	//NSString *bulletinID = bulletin.bulletinID;
 	NSString *sectionId =  bulletin.sectionID;
 
-   // HBLogDebug(@"NOTIBLOCK - Entered publish bulletin for %@ with ID: %@ ", sectionId, bulletinID);
-
+    // HBLogDebug(@"NOTIBLOCK - Entered publish bulletin for %@ with ID: %@ ", sectionId, bulletinID);
 	//HBLogDebug(@"NOTIBLOCK - BulletinID:%@         Title: %@      Subtitle: %@         Message: %@", bulletinID, title, subtitle, message );
 
 	BOOL filtered = NO;
@@ -281,7 +279,6 @@ Loads filters into memory from disk when springboard is loaded
 			[appIdfilters addObject:filter];
 
 			HBLogDebug(@"NOTIBLOCK - adding filter to dict for appkey: --%@--", dictKey);
-
 		}
 	} else {
 		HBLogDebug(@"NOTIBLOCK - springboard data load was nil");
@@ -336,7 +333,7 @@ Check for filters and block notifications if needed
 
 	bulletin.sound = nil;
 	bulletin.turnsOnDisplay = NO;
-    %orig(bulletin, arg2);
+	%orig(bulletin, arg2);
 
 	if (blockType == 2) {
 		[self _clearBulletinIDs:@[bulletin.bulletinID] forSectionID:bulletin.sectionID shouldSync:YES];
