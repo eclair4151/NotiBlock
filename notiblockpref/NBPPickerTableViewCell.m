@@ -15,30 +15,34 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        //self.options = [NSArray arrayWithObjects:@"If it starts with:",@"If it ends with:",@"If it contains the text:",@"if it is the exact text:",@"If it matches regex:",@"Always",nil];
-        int vertHeight = 0;
-        int screenWidth = [[UIScreen mainScreen] bounds].size.width;
-        self.descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, vertHeight, 200, 50)];
-        //self.descriptionLabel.text = @"Block the notification";
+        self.descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         [self addSubview:self.descriptionLabel];
         
-        self.selectedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, vertHeight, screenWidth-15, 50)];
-        //self.selectedLabel.text = (NSString *)self.options[0];
+        self.selectedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         self.selectedLabel.textAlignment = NSTextAlignmentRight;
         [self addSubview:self.selectedLabel];
-        vertHeight+=50;
         
-        self.picker = [[UIPickerView alloc] initWithFrame:CGRectMake((screenWidth - 225)/2, vertHeight, 225, 150)];
+        self.picker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         self.picker.dataSource = self;
         self.picker.delegate = self;
         self.picker.hidden = NO;
         self.picker.tag = 1;
         
         [self addSubview:self.picker];
-        vertHeight += 150;
     }
     return self;
 }
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    int screenWidth = self.frame.size.width;
+    int vertHeight = 0;
+    self.descriptionLabel.frame = CGRectMake(15, vertHeight, 200, 50);
+    self.selectedLabel.frame = CGRectMake(0, vertHeight, screenWidth-15, 50);
+    vertHeight+=50;
+    self.picker.frame = CGRectMake((screenWidth - 225)/2, vertHeight, 225, 150);
+}
+
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {

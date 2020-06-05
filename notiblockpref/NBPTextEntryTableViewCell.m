@@ -15,12 +15,16 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self setSelectionStyle:UITableViewCellSelectionStyleNone];
-
-        int screenWidth = [[UIScreen mainScreen] bounds].size.width;
-        self.textField = [[UITextField alloc] initWithFrame:CGRectMake(15, 0, screenWidth, 50)];
-        //self.textField.placeholder = @"Enter Filter Text Here";
+        self.textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         [self addSubview:self.textField];
     }
     return self;
 }
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    int screenWidth = self.frame.size.width;
+    self.textField.frame = CGRectMake(15, 0, screenWidth, 50);
+}
+
 @end

@@ -40,9 +40,9 @@
 
 @implementation NBPAddViewController
 
-- (void)loadView {
-    [super loadView];
-    self.view = [[UIView alloc]initWithFrame:[UIScreen mainScreen].applicationFrame];
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
 
     UIBarButtonItem* cancelBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onTapCancel:)];
@@ -99,8 +99,8 @@
     
 
 
-    int screenHeight = [[UIScreen mainScreen] bounds].size.height;
-    int screenWidth = [[UIScreen mainScreen] bounds].size.width;
+    int screenHeight = self.view.frame.size.height;
+    int screenWidth = self.view.frame.size.width;
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,0,screenWidth,screenHeight) style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -144,7 +144,6 @@
     [super viewDidLayoutSubviews];
     self.tableView.frame = CGRectMake(0,0,self.view.frame.size.width,self.view.frame.size.height);
 }
-
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     switch (indexPath.section) {
@@ -298,7 +297,7 @@
     } else if (indexPath.section == 6 && indexPath.row == 2) {
         return (self.endTimeCell.datePicker.tag == 0 ? 50 : 200);
     } else if (indexPath.section == 1) {
-        return [[UIScreen mainScreen] bounds].size.width * 0.27; 
+        return self.view.frame.size.width * 0.27; 
     }
     return 50;
 }

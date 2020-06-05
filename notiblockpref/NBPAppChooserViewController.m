@@ -69,6 +69,11 @@
     [self.view addSubview:self.tableView];
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    self.tableView.frame = CGRectMake(0,0,self.view.frame.size.width,self.view.frame.size.height);
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     AppListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AppCell"];
     ALApplicationList *appList = [ALApplicationList sharedApplicationList];

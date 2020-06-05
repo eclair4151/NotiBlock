@@ -14,12 +14,20 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        int screenWidth = [[UIScreen mainScreen] bounds].size.width;
-        self.buttonTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, screenWidth, 50)];
+        self.buttonTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         self.buttonTextLabel.text = @"Select App To Filter...";
         [self.buttonTextLabel setTextColor:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]];
         [self addSubview:self.buttonTextLabel];
     }
     return self;
 }
+
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    int screenWidth = self.frame.size.width;
+    self.buttonTextLabel.frame = CGRectMake(15, 0, screenWidth, 50);
+}
+
+
 @end

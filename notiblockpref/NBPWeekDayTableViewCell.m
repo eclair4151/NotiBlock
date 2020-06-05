@@ -16,13 +16,12 @@
     if (self) {
         [self setSelectionStyle:UITableViewCellSelectionStyleNone];
         
-        int screenWidth = [[UIScreen mainScreen] bounds].size.width;
         self.weekDaysSelected = [[NSMutableArray alloc] initWithCapacity:7];
         self.weekDayButtons = [[NSMutableArray alloc] initWithCapacity:7];
 
         NSArray *weekdays = [NSArray arrayWithObjects: @"Sun", @"Mon", @"Tue", @"Wed", @"Thu",@"Fri", @"Sat", nil];
         for (int i = 0; i < 7; i++) {
-            UIButton *weekdayButton = [[UIButton alloc] initWithFrame:CGRectMake(i*(screenWidth/7+1), 0, (screenWidth/7 + 1), 50)];
+            UIButton *weekdayButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
             weekdayButton.tag = i;
             
             weekdayButton.backgroundColor = [UIColor colorWithRed:134.0/255.0 green:236.0/255.0 blue:122.0/255.0 alpha:.54];
@@ -40,6 +39,14 @@
         }
     }
     return self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    int screenWidth = self.frame.size.width;
+    for (int i = 0; i < 7; i++) {
+        ((UIButton *)self.weekDayButtons[i]).frame = CGRectMake(i*(screenWidth/7+1), 0, (screenWidth/7 + 1), 50);
+    }
 }
 
 - (IBAction)weekdayPressed:(UIButton *)sender {
