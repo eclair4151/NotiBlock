@@ -10,37 +10,38 @@
 
 @implementation DatePickerTableViewCell
 
-//- (void)awakeFromNib {
-//    [super awakeFromNib];
-//    // Initialization code
-//}
-
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        int vertHeight = 0;
-        int screenWidth = [[UIScreen mainScreen] bounds].size.width;
-        self.descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, vertHeight, 150, 50)];
+        self.descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,0,0)];
         [self addSubview:self.descriptionLabel];
 
-        self.selectedTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, vertHeight, screenWidth - 15, 50)];
+        self.selectedTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         self.selectedTimeLabel.textAlignment = NSTextAlignmentRight;
         [self addSubview:self.selectedTimeLabel];
-        vertHeight+=50;
         
-        self.datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, vertHeight, screenWidth, 150)];
+        self.datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         self.datePicker.datePickerMode = UIDatePickerModeTime;
         [self.datePicker addTarget:self action:@selector(dateIsChanged:) forControlEvents:UIControlEventValueChanged];
         self.datePicker.hidden = YES;
         
         [self addSubview:self.datePicker];
         [self dateIsChanged:self.datePicker];
-
-        vertHeight += 150;
     }
     return self;
 }
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    int screenWidth = self.frame.size.width;
+    int vertHeight = 0;
+    self.descriptionLabel.frame = CGRectMake(15, vertHeight, 150, 50);
+    self.selectedTimeLabel.frame = CGRectMake(0, vertHeight, screenWidth - 15, 50);
+    vertHeight+=50;
+    self.datePicker.frame = CGRectMake(0, vertHeight, screenWidth, 150);
+}
+
 
 - (void)dateIsChanged:(id)sender{
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
