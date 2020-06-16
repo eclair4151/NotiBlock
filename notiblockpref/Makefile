@@ -8,7 +8,7 @@ NotiBlockPref_FRAMEWORKS = UIKit
 NotiBlockPref_PRIVATE_FRAMEWORKS = Preferences
 NotiBlockPref_LIBRARIES = applist
 NotiBlockPref_EXTRA_FRAMEWORKS += Cephei CepheiPrefs
-
+NotiBlockPref_CFLAGS = -fobjc-arc
 include $(THEOS_MAKE_PATH)/bundle.mk
 
 internal-stage::

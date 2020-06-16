@@ -54,7 +54,7 @@
 
 
 - (NSDictionary *)encodeToDictionary {
-  NSMutableDictionary *dict = [[NSMutableDictionary dictionaryWithObjectsAndKeys:
+  NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
   self.filterName, @"filterName",
   self.filterText, @"filterText",
   [NSNumber numberWithInt:self.blockType], @"blockType",
@@ -65,7 +65,7 @@
   self.startTime, @"startTime",
   self.endTime, @"endTime",
   self.weekDays, @"weekDays",
-  nil] retain];
+  nil];
 
   if (self.appToBlock != nil) {
     [dict setObject:self.appToBlock.appIdentifier forKey:@"appToBlockIdentifier"];

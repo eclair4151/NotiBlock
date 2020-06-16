@@ -23,11 +23,11 @@ int __isOSVersionAtLeast(int major, int minor, int patch) { NSOperatingSystemVer
 		self.filterList = [[NSMutableArray alloc] init];
 	}
 	self.title = @"Notification Filters";
-	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped:)] autorelease];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped:)];
 }
 
 - (void)addButtonTapped:(id)sender {	
-    NBPAddViewController *one = [[[NBPAddViewController alloc]init] autorelease];
+    NBPAddViewController *one = [[NBPAddViewController alloc]init];
 	one.delegate = self;
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:one];
 	if (@available(iOS 13, *)) {
@@ -51,7 +51,7 @@ int __isOSVersionAtLeast(int major, int minor, int patch) { NSOperatingSystemVer
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
 	if (!cell) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 	}
 
     cell.textLabel.text = ((NotificationFilter *)self.filterList[indexPath.row]).filterName;
@@ -67,7 +67,7 @@ int __isOSVersionAtLeast(int major, int minor, int patch) { NSOperatingSystemVer
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	 NBPAddViewController *one = [[[NBPAddViewController alloc]init] autorelease];
+	 NBPAddViewController *one = [[NBPAddViewController alloc]init];
 	one.delegate = self;
 	one.currentFilter = [self.filterList objectAtIndex:indexPath.row];
 
