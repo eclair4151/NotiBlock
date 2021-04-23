@@ -16,7 +16,7 @@
     if (self) {
         [self setSelectionStyle:UITableViewCellSelectionStyleNone];
         self.textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-        [self addSubview:self.textField];
+        [self.contentView addSubview:self.textField];
     }
     return self;
 }

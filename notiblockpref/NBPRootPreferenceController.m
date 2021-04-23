@@ -23,7 +23,7 @@
  }
 
 -(void)respringPhone {
-	HBLogDebug(@"NOTIBLOCK - respring phone");
+	NSLog(@"NOTIBLOCK - respring phone");
 	[HBRespringController respring];
 }
  

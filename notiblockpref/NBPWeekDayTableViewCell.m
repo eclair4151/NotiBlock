@@ -34,7 +34,7 @@
             [self.weekDayButtons addObject:weekdayButton];
             [self.weekDaysSelected addObject:[NSNumber numberWithBool:YES]];
 
-            [self addSubview:weekdayButton];
+            [self.contentView addSubview:weekdayButton];
             
         }
     }

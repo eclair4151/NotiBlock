@@ -15,11 +15,11 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.appIcon = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,0,0)];
-        [self addSubview:self.appIcon];
+        [self.contentView addSubview:self.appIcon];
 
         self.appName = [[UILabel alloc] initWithFrame:CGRectMake(0,0,0,0)];
         self.appName.numberOfLines = 1;
-        [self addSubview:self.appName];
+        [self.contentView addSubview:self.appName];
     }
     return self;
 }

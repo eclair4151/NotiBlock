@@ -15,18 +15,18 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,0,0)];
-        [self addSubview:self.descriptionLabel];
+        [self.contentView addSubview:self.descriptionLabel];
 
         self.selectedTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         self.selectedTimeLabel.textAlignment = NSTextAlignmentRight;
-        [self addSubview:self.selectedTimeLabel];
+        [self.contentView addSubview:self.selectedTimeLabel];
         
         self.datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         self.datePicker.datePickerMode = UIDatePickerModeTime;
         [self.datePicker addTarget:self action:@selector(dateIsChanged:) forControlEvents:UIControlEventValueChanged];
         self.datePicker.hidden = YES;
         
-        [self addSubview:self.datePicker];
+        [self.contentView addSubview:self.datePicker];
         [self dateIsChanged:self.datePicker];
     }
     return self;

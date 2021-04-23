@@ -16,11 +16,11 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-        [self addSubview:self.descriptionLabel];
+        [self.contentView addSubview:self.descriptionLabel];
         
         self.selectedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         self.selectedLabel.textAlignment = NSTextAlignmentRight;
-        [self addSubview:self.selectedLabel];
+        [self.contentView addSubview:self.selectedLabel];
         
         self.picker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         self.picker.dataSource = self;
@@ -28,7 +28,7 @@
         self.picker.hidden = NO;
         self.picker.tag = 1;
         
-        [self addSubview:self.picker];
+        [self.contentView addSubview:self.picker];
     }
     return self;
 }

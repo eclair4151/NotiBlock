@@ -1,6 +1,3 @@
-int __isOSVersionAtLeast(int major, int minor, int patch) { NSOperatingSystemVersion version; version.majorVersion = major; version.minorVersion = minor; version.patchVersion = patch; return [[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:version]; }
-
-
 #import "NBPRootTableViewController.h"
 #import <Cephei/HBPreferences.h>
 
@@ -30,9 +27,8 @@ int __isOSVersionAtLeast(int major, int minor, int patch) { NSOperatingSystemVer
     NBPAddViewController *one = [[NBPAddViewController alloc]init];
 	one.delegate = self;
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:one];
-	if (@available(iOS 13, *)) {
-        navController.modalInPresentation = YES;
-	}
+    navController.modalInPresentation = YES;
+	
     [self presentViewController:navController animated:YES completion:nil];
 }
 
@@ -72,9 +68,8 @@ int __isOSVersionAtLeast(int major, int minor, int patch) { NSOperatingSystemVer
 	one.currentFilter = [self.filterList objectAtIndex:indexPath.row];
 
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:one];
-    if (@available(iOS 13, *)) {
-        navController.modalInPresentation = YES;
-	}
+    navController.modalInPresentation = YES;
+	
 	[self presentViewController:navController animated:YES completion:nil];
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
