@@ -22,7 +22,7 @@
         UIImage *myImage = [UIImage imageWithContentsOfFile:imagePath];
         self.cellImageView.contentMode = UIViewContentModeScaleAspectFit;
         self.cellImageView.image = myImage;
-        [self addSubview:self.cellImageView];
+        [self.contentView addSubview:self.cellImageView];
     }
     return self;
 }

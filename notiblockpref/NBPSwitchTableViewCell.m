@@ -17,11 +17,11 @@
         [self setSelectionStyle:UITableViewCellSelectionStyleNone];
 
         self.switchLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-        [self addSubview:self.switchLabel];
+        [self.contentView addSubview:self.switchLabel];
         
         self.cellSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         [self.cellSwitch setOn:NO animated:NO];
-        [self addSubview:self.cellSwitch];
+        [self.contentView addSubview:self.cellSwitch];
     }
     return self;
 }

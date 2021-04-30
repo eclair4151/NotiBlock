@@ -17,7 +17,7 @@
         self.buttonTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         self.buttonTextLabel.text = @"Select App To Filter...";
         [self.buttonTextLabel setTextColor:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]];
-        [self addSubview:self.buttonTextLabel];
+        [self.contentView addSubview:self.buttonTextLabel];
     }
     return self;
 }
