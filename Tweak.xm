@@ -51,7 +51,7 @@ returns whether a message should be filtered based on some boolean logic of filt
 + (BOOL)doesMessageMatchFilterType:(BOOL)titleMatches arg2:(BOOL)subtitleMatches arg3:(BOOL)messageMatches  arg4:(int)filterType {
 	NSLog(@"NOTIBLOCK - checking matched: title: %@, subtitle: %@, message: %@, filterType: %d",(titleMatches ? @"true" : @"false"), (subtitleMatches ? @"true" : @"false"), (messageMatches ? @"true" : @"false"), filterType);
 	if (filterType == 0) {
-		return titleMatches || titleMatches || messageMatches;
+		return titleMatches || subtitleMatches || messageMatches;
 	} else if (filterType == 1) {
 		return titleMatches;
 	} else if (filterType == 2) {
