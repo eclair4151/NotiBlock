@@ -1,7 +1,7 @@
 Package: com.shemeshapps.notiblock
 Name: NotiBlock
 Depends: mobilesubstrate, ws.hbang.common, preferenceloader, applist
-Version: 0.0.4
+Version: 0.0.5
 Architecture: iphoneos-arm
 Description: NotiBlock - Block notifications and take control of your digital well-being
  Push notifications are a gift and a curse, allowing you to get notified instantly of important information, but also opening a door into letting people and apps interrupt your life without your consent. The tools Apple gives us are not powerful enough to stop the spam of notifications, and required a more advanced tool set. 
