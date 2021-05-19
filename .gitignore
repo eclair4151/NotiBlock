@@ -1,3 +1,9 @@
-*debug_iphoneos-arm.deb
-.theos/*
+._*
+*.deb
+.debmake
+_
+obj
+.theos
+.DS_Store
+
 .vscode/*
