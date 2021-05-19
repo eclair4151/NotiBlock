@@ -18,23 +18,17 @@
 		</dict>
 		<dict>
 			<key>cell</key>
-			<string>PSGroupCell</string>
-			<key>label</key>
-			<string>NotiBlock Settings</string>
-		</dict>
-		<dict>
-			<key>cell</key>
 			<string>PSLinkListCell</string>
 			<key>label</key>
-			<string>Notification Filter List</string>
+			<string>Active Filters</string>
 			<key>action</key>
 			<string>viewFilters</string>
 		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-			<key>label</key>
-			<string>Respring for changes to take affect</string>
+			<key>footerText</key>
+			<string>A respring is necessary for changes to take effect.</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -47,22 +41,16 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-			<key>label</key>
-			<string>View the source code for this tweak</string>
+			<key>footerText</key>
+			<string>Help Support my development of free, opensource tweaks by donating.</string>
 		</dict>
 		<dict>
 			<key>cellClass</key>
 			<string>HBLinkTableCell</string>
 			<key>label</key>
-			<string>View on Github</string>
+			<string>View Source on Github</string>
 			<key>url</key>
 			<string>https://github.com/eclair4151/NotiBlock</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-			<key>label</key>
-			<string>Help Support my development of free, opensource tweaks</string>
 		</dict>
 		<dict>
 			<key>cellClass</key>
