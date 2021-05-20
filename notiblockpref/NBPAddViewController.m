@@ -16,6 +16,16 @@
 #import "NBPAppChooserViewController.h"
 #import "NBPImageTableViewCell.h"
 
+typedef NS_ENUM(NSUInteger, Section) {
+    SectionFilterName = 0,
+    SectionExampleBanner = 1,
+    SectionFieldFilter = 2,
+    SectionAppFilter = 3,
+    SectionWhitelistMode = 4,
+    SectionShowInNotificationCenter = 5,
+    SectionBlockOnSchedule = 6
+};
+
 @interface NBPAddViewController ()
 @property UITableView *tableView;
 
@@ -147,11 +157,11 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     switch (indexPath.section) {
-        case 0:
+        case SectionFilterName:
             return self.filterNameCell;
-        case 1:
+        case SectionExampleBanner:
             return self.notificationExampleViewCell;
-        case 2:
+        case SectionFieldFilter:
             switch (indexPath.row) {
                 case 0:
                     return self.notificationFilterFieldPickerCell;
@@ -160,13 +170,13 @@
                 case 2:
                     return self.filterTextCell;
             }
-        case 3:
+        case SectionAppFilter:
             return self.appToBlockCell;
-        case 4:
+        case SectionWhitelistMode:
             return self.whitelistSwitchCell;
-        case 5:
+        case SectionShowInNotificationCenter:
             return self.showInNotificationCenterSwitchCell;
-        case 6:
+        case SectionBlockOnSchedule:
             switch (indexPath.row) {
                 case 0:
                     return self.scheduleSwitchCell;
@@ -184,19 +194,19 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
-        case 0:
+        case SectionFilterName:
             return @"Filter Name";
-        case 1:
+        case SectionExampleBanner:
             return @"Notification Example";
-        case 2:
+        case SectionFieldFilter:
             return @"Notification Filter Settings";
-        case 3:
+        case SectionAppFilter:
             return @"App To Filter";
-        case 4:
+        case SectionWhitelistMode:
             return @"By Setting Whitelist Mode to true, only notifications that match your filter they will be allowed, all others will be blocked. Note if you use a whitelist filter, you cannot combine with any other filters for that app. If you need to whitelist multiple things, you will need to use regex. Ex, set whitelist to true, select regex filter, and enter “^(Tomer:|Alex:)” would block all notifications from an app that didn’t start with Tomer: or Alex: blocking everyone else out.";
-        case 5:
+        case SectionShowInNotificationCenter:
             return @"By turning Show In Notification Center to true, the notification will not make a sound, wake your phone, or show a banner, but will still show up in the notification center/lockscreen.";
-        case 6:
+        case SectionBlockOnSchedule:
             return @"When blocking on a schedule, The filter is only active in between the start time and end time on days that are selected as green. If the notification happens on a day that is red, or outside the window, it will be allowed through.";
     }  
     return @"";  
@@ -205,26 +215,16 @@
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
-        case 0:
-            return 1;
-        case 1:
-            return 1;
-        case 2:
+        case SectionFieldFilter:
             return 3;
-        case 3:
-            return 1;
-        case 4:
-            return 1;
-        case 5:
-            return 1;
-        case 6:
+        case SectionBlockOnSchedule:
             return (self.scheduleSwitchCell.cellSwitch.isOn ? 4 : 1);
         default:
-            return 0;
+            return 1;
     }
 }
 
-- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 7;
 }
 
@@ -270,39 +270,68 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 2 && indexPath.row == 0) {
-        [self toggleViewVisibility:self.notificationFilterFieldPickerCell.picker];
-    } if (indexPath.section == 2 && indexPath.row == 1) {
-        [self toggleViewVisibility:self.blockTypePickerCell.picker];
-    } else if (indexPath.section == 6 && indexPath.row == 1) {
-        [self toggleViewVisibility:self.startTimeCell.datePicker];
-    } else if (indexPath.section == 6 && indexPath.row == 2) {
-        [self toggleViewVisibility:self.endTimeCell.datePicker];
-    } else if (indexPath.section == 3) {
-        [self dismissKeyboard];
-        AppChooserViewController *vc = [[AppChooserViewController alloc] init];
-        vc.delegate = self;
-        [self.navigationController pushViewController:vc animated:YES];
+    switch (indexPath.section) {
+        case SectionFieldFilter: {
+            switch (indexPath.row) {
+                case 0:
+                    [self toggleViewVisibility:self.notificationFilterFieldPickerCell.picker];
+                    break;
+                case 1:
+                    [self toggleViewVisibility:self.blockTypePickerCell.picker];
+                    break;
+            } break;
+        }
+        case SectionAppFilter: {
+            [self dismissKeyboard];
+            AppChooserViewController *vc = [[AppChooserViewController alloc] init];
+            vc.delegate = self;
+            [self.navigationController pushViewController:vc animated:YES];
+            break;
+        }
+        case SectionBlockOnSchedule: {
+            switch (indexPath.row) {
+                case 1:
+                    [self toggleViewVisibility:self.startTimeCell.datePicker];
+                    break;
+                case 2:
+                    [self toggleViewVisibility:self.endTimeCell.datePicker];
+                    break;
+            } break;
+        }
     }
+    
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 2 && indexPath.row == 0) { 
-        return (self.notificationFilterFieldPickerCell.picker.tag == 0 ? 50 : 200);
-    } if (indexPath.section == 2 && indexPath.row == 1) { 
-        return (self.blockTypePickerCell.picker.tag == 0 ? 50 : 200);
-    } else if (indexPath.section == 6 && indexPath.row == 1) {
-        return (self.startTimeCell.datePicker.tag == 0 ? 50 : 200);
-    } else if (indexPath.section == 6 && indexPath.row == 2) {
-        return (self.endTimeCell.datePicker.tag == 0 ? 50 : 200);
-    } else if (indexPath.section == 1) {
-        return self.view.frame.size.width * 0.27; 
+    switch (indexPath.section) {
+        case SectionExampleBanner:
+            return self.view.frame.size.width * 0.27;
+            
+        case SectionFieldFilter: {
+            switch (indexPath.row) {
+                case 0:
+                    if (self.notificationFilterFieldPickerCell.picker.tag == 0) return 200;
+                    break;
+                case 1:
+                    if (self.blockTypePickerCell.picker.tag == 0) return 200;
+                    break;
+            } break;
+        }
+        case SectionBlockOnSchedule: {
+            switch (indexPath.row) {
+                case 1:
+                    if (self.startTimeCell.datePicker.tag == 0) return 200;
+                    break;
+                case 2:
+                    if (self.endTimeCell.datePicker.tag == 0) return 200;
+                    break;
+            } break;
+        }
     }
-    return 50;
+    
+    return 44;
 }
-
-
 
 
 
