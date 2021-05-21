@@ -26,7 +26,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     int screenWidth = self.frame.size.width;
-    self.buttonTextLabel.frame = CGRectMake(15, 0, screenWidth, 50);
+    self.buttonTextLabel.frame = CGRectMake(15, 0, screenWidth, 44);
 }
 
 

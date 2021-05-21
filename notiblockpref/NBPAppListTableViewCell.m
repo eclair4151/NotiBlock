@@ -27,8 +27,8 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     int screenWidth = self.frame.size.width;
-    self.appIcon.frame = CGRectMake(17.5, 7.5, 35, 35);
-    self.appName.frame = CGRectMake(70, 0, screenWidth-70, 50);
+    self.appIcon.frame = CGRectMake(17.5, 7.5, 30, 30);
+    self.appName.frame = CGRectMake(70, 0, screenWidth-70, 44);
 }
 
 @end
