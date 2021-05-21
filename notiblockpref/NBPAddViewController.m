@@ -318,20 +318,20 @@ typedef NS_ENUM(NSUInteger, Section) {
         case SectionFieldFilter: {
             switch (indexPath.row) {
                 case 0:
-                    if (self.notificationFilterFieldPickerCell.picker.tag == 0) return 200;
+                    if (self.notificationFilterFieldPickerCell.picker.tag) return 200;
                     break;
                 case 1:
-                    if (self.blockTypePickerCell.picker.tag == 0) return 200;
+                    if (self.blockTypePickerCell.picker.tag) return 200;
                     break;
             } break;
         }
         case SectionBlockOnSchedule: {
             switch (indexPath.row) {
                 case 1:
-                    if (self.startTimeCell.datePicker.tag == 0) return 200;
+                    if (self.startTimeCell.datePicker.tag) return 200;
                     break;
                 case 2:
-                    if (self.endTimeCell.datePicker.tag == 0) return 200;
+                    if (self.endTimeCell.datePicker.tag) return 200;
                     break;
             } break;
         }
