@@ -1,8 +1,9 @@
 include $(THEOS)/makefiles/common.mk
-
+export TARGET = iphone:latest:11.0
 ARCHS = arm64 arm64e
+
 BUNDLE_NAME = NotiBlockPref
-NotiBlockPref_FILES = NBPAppInfo.m NBPRootPreferenceController.m NBPRootTableViewController.m NBPAddViewController.m NBPButtonTableViewCell.m NBPPickerTableViewCell.m NBPSwitchTableViewCell.m NBPTextEntryTableViewCell.m NBPWeekDayTableViewCell.m NBPNotificationFilter.m NBPDatePickerTableViewCell.m NBPAppChooserViewController.m NBPAppListTableViewCell.m NBPImageTableViewCell.m
+NotiBlockPref_FILES = $(wildcard *.m)
 NotiBlockPref_INSTALL_PATH = /Library/PreferenceBundles
 NotiBlockPref_FRAMEWORKS = UIKit
 NotiBlockPref_PRIVATE_FRAMEWORKS = Preferences
