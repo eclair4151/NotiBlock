@@ -141,7 +141,7 @@ typedef NS_ENUM(NSUInteger, Section) {
         [self.weekDayCell  setWeekDays:[self.currentFilter.weekDays mutableCopy]];
         
     } else {
-        self.title = @"New Notification Filter";
+        self.title = @"New Filter";
         self.currentFilter = [[NotificationFilter alloc] init];
         [self.notificationFilterFieldPickerCell setPickerIndex:0];
         saveButtonText = @"Create";
@@ -195,23 +195,30 @@ typedef NS_ENUM(NSUInteger, Section) {
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
         case SectionFilterName:
-            return @"Filter Name";
+            return @"Name";
         case SectionExampleBanner:
-            return @"Notification Example";
+            return @"Example Notification";
         case SectionFieldFilter:
-            return @"Notification Filter Settings";
+            return @"Filter Criteria";
         case SectionAppFilter:
-            return @"App To Filter";
-        case SectionWhitelistMode:
-            return @"By Setting Whitelist Mode to true, only notifications that match your filter they will be allowed, all others will be blocked. Note if you use a whitelist filter, you cannot combine with any other filters for that app. If you need to whitelist multiple things, you will need to use regex. Ex, set whitelist to true, select regex filter, and enter “^(Tomer:|Alex:)” would block all notifications from an app that didn’t start with Tomer: or Alex: blocking everyone else out.";
-        case SectionShowInNotificationCenter:
-            return @"By turning Show In Notification Center to true, the notification will not make a sound, wake your phone, or show a banner, but will still show up in the notification center/lockscreen.";
-        case SectionBlockOnSchedule:
-            return @"When blocking on a schedule, The filter is only active in between the start time and end time on days that are selected as green. If the notification happens on a day that is red, or outside the window, it will be allowed through.";
-    }  
-    return @"";  
+            return @"Filter by App";
+    }
+    
+    return nil;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    switch (section) {
+        case SectionWhitelistMode:
+            return @"Invert the filter criteria: only notifications that match this will be allowed. Note that whitelist filters cannot be combined with any other filters for that app. If you need to whitelist multiple things, you will need to use a regex.\n\nExample: enable Whitelist Mode, select the regex filter, and enter “^(Tomer|Alex):” to block all notifications from an app that don't start with ”Tomer:” or ”Alex:”, blocking everything else.";
+        case SectionShowInNotificationCenter:
+            return @"Prevent the notification from making sounds sound, waking your device, or showing banners. It will still show up on the lockscreen.";
+        case SectionBlockOnSchedule:
+            return @"Schedule when to activate this filter. The filter will only activate in the given timeframe on the selected days (in green). If the notification happens on a day that is red or outside the timeframe, it will not be blocked.";
+    }  
+    
+    return nil;
+}
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
@@ -311,20 +318,20 @@ typedef NS_ENUM(NSUInteger, Section) {
         case SectionFieldFilter: {
             switch (indexPath.row) {
                 case 0:
-                    if (self.notificationFilterFieldPickerCell.picker.tag == 0) return 200;
+                    if (self.notificationFilterFieldPickerCell.picker.tag) return 200;
                     break;
                 case 1:
-                    if (self.blockTypePickerCell.picker.tag == 0) return 200;
+                    if (self.blockTypePickerCell.picker.tag) return 200;
                     break;
             } break;
         }
         case SectionBlockOnSchedule: {
             switch (indexPath.row) {
                 case 1:
-                    if (self.startTimeCell.datePicker.tag == 0) return 200;
+                    if (self.startTimeCell.datePicker.tag) return 200;
                     break;
                 case 2:
-                    if (self.endTimeCell.datePicker.tag == 0) return 200;
+                    if (self.endTimeCell.datePicker.tag) return 200;
                     break;
             } break;
         }

@@ -36,9 +36,9 @@
     [super layoutSubviews];
     int screenWidth = self.frame.size.width;
     int vertHeight = 0;
-    self.descriptionLabel.frame = CGRectMake(15, vertHeight, 150, 50);
-    self.selectedTimeLabel.frame = CGRectMake(0, vertHeight, screenWidth - 15, 50);
-    vertHeight+=50;
+    self.descriptionLabel.frame = CGRectMake(15, vertHeight, 150, 44);
+    self.selectedTimeLabel.frame = CGRectMake(0, vertHeight, screenWidth - 15, 44);
+    vertHeight+=44;
     self.datePicker.frame = CGRectMake(0, vertHeight, screenWidth, 150);
 }
 

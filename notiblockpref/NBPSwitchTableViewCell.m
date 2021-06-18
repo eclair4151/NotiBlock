@@ -28,9 +28,14 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    int screenWidth = self.frame.size.width;
-    self.switchLabel.frame = CGRectMake(15, 0, 250, 50);
-    self.cellSwitch.frame = CGRectMake(screenWidth-66, 9, 51, 31);
+    
+    CGFloat screenWidth = self.frame.size.width;
+    self.switchLabel.frame = CGRectMake(15, 0, 250, 44);
+    
+    self.cellSwitch.center = self.contentView.center;
+    CGRect switchFrame = self.cellSwitch.frame;
+    switchFrame.origin.x = screenWidth-66;
+    self.cellSwitch.frame = switchFrame;
 }
 
 

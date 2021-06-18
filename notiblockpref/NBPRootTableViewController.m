@@ -1,9 +1,3 @@
-#define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
-#define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
-#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
-#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
-#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
-
 #import "NBPRootTableViewController.h"
 #import <Cephei/HBPreferences.h>
 
@@ -33,7 +27,7 @@
     NBPAddViewController *one = [[NBPAddViewController alloc]init];
 	one.delegate = self;
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:one];
-	if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"13.0")) {
+	if (@available(iOS 13.0, *)) {
         navController.modalInPresentation = YES;
 	}
 	
@@ -76,7 +70,7 @@
 	one.currentFilter = [self.filterList objectAtIndex:indexPath.row];
 
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:one];
-	if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"13.0")) {
+	if (@available(iOS 13.0, *)) {
         navController.modalInPresentation = YES;
 	}
 		

@@ -45,7 +45,7 @@
     [super layoutSubviews];
     int screenWidth = self.frame.size.width;
     for (int i = 0; i < 7; i++) {
-        ((UIButton *)self.weekDayButtons[i]).frame = CGRectMake(i*(screenWidth/7+1), 0, (screenWidth/7 + 1), 50);
+        ((UIButton *)self.weekDayButtons[i]).frame = CGRectMake(i*(screenWidth/7+1), 0, (screenWidth/7 + 1), 44);
     }
 }
 

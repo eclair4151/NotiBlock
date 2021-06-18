@@ -1,6 +1,7 @@
 include $(THEOS)/makefiles/common.mk
-
+export TARGET = iphone:latest:11.0
 ARCHS = arm64 arm64e
+
 TWEAK_NAME = NotiBlock
 NotiBlock_FILES = Tweak.xm notiblockpref/NBPNotificationFilter.m notiblockpref/NBPAppInfo.m
 NotiBlock_LIBRARIES = applist

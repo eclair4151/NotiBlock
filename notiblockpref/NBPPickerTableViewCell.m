@@ -37,9 +37,9 @@
     [super layoutSubviews];
     int screenWidth = self.frame.size.width;
     int vertHeight = 0;
-    self.descriptionLabel.frame = CGRectMake(15, vertHeight, 200, 50);
-    self.selectedLabel.frame = CGRectMake(0, vertHeight, screenWidth-15, 50);
-    vertHeight+=50;
+    self.descriptionLabel.frame = CGRectMake(15, vertHeight, 200, 44);
+    self.selectedLabel.frame = CGRectMake(0, vertHeight, screenWidth-15, 44);
+    vertHeight+=44;
     self.picker.frame = CGRectMake((screenWidth - 225)/2, vertHeight, 225, 150);
 }
 

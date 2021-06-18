@@ -24,7 +24,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     int screenWidth = self.frame.size.width;
-    self.textField.frame = CGRectMake(15, 0, screenWidth, 50);
+    self.textField.frame = CGRectMake(15, 0, screenWidth, 44);
 }
 
 @end
