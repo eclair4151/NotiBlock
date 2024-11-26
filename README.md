@@ -1,9 +1,9 @@
 # NotiBlock
 A Jailbreak Tweak for selectively muting and blocking iPhone push notifications based on filters.<br>
 Available on the Cydia app through the BigBoss repo.<br>
-
+<a href='https://moreinfo.thebigboss.org/moreinfo/depiction.php?file=notiblockDp'>https://moreinfo.thebigboss.org/moreinfo/depiction.php?file=notiblockDp</a><br><br>
 Compatible with iOS 11.0 to 14.4+<br>
-Block notifications and take control of your digital well-being<br><br>
+Block notifications and take control of your digital well-being<br>
 
 Push notifications are a gift and a curse, allowing you to get notified instantly of important information, but also opening a door into letting people and apps interrupt your life without your consent. The tools Apple gives us are not powerful enough to stop the spam of notifications, and required a more advanced tool set.<br><br>
 
